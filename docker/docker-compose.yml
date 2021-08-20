@@ -1,0 +1,86 @@
+version: '2.1'
+services:
+
+  web:
+    build:
+      context: ""
+      dockerfile: Dockerfile.local
+      args:
+        hostUID: 1000
+        hostGID: 1000
+    image: laravel8-web
+    hostname: laravel8-web
+    container_name: laravel8-web
+    extra_hosts:
+      # Need for Xdebug and some callback to local
+      - "host.docker.internal:host-gateway"
+    labels:
+      SERVICE_NAME: laravel8-web
+      SERVICE_80_NAME: laravel8-web
+      SERVICE_443_NAME: laravel8-web
+    ports:
+     - '8080:80'
+     - '8443:443'
+    depends_on:
+      db:
+        condition: service_healthy
+      mail:
+        condition: service_started
+      redis:
+        condition: service_started
+    environment:
+      APP_ENV: local
+      PHP_IDE_CONFIG: serverName=laravel8-web.service.docker
+    volumes:
+    - ../:/home/www/app
+    # Override xdebug.ini of image `vinhxike/php8`
+    - ./customize/etc/php8/conf.d/xdebug.ini:/etc/php8/conf.d/xdebug.ini
+
+  db:
+    #image: mysql:5.7.35
+    image: mysql:8.0.25
+    hostname: laravel8-db
+    container_name: laravel8-db
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: laravel8
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    labels:
+      SERVICE_NAME: laravel8-db
+      SERVICE_3306_NAME: laravel8-db
+      SERVICE_33060_NAME: laravel8-db
+    ports:
+      - '33060:3306'
+    healthcheck:
+      test: "/usr/bin/mysql --user=user --password=secret --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    #command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --default-authentication-plugin=mysql_native_password
+
+  mail:
+    image: mailhog/mailhog:v1.0.1
+    hostname: laravel8-mail
+    container_name: laravel8-mail
+    labels:
+        SERVICE_NAME: laravel8-mail
+    ports:
+      - '8025:8025'
+
+  redis:
+    #image: redis:4.0.14-alpine3.11
+    image: redis:6.2.5-alpine3.14
+    hostname: laravel8-redis
+    container_name: laravel8-redis
+    labels:
+      SERVICE_NAME: laravel8-redis
+
+  static:
+    build:
+      context: ""
+      dockerfile: Dockerfile.nodejs
+    image: static-builder
+    hostname: static-builder
+    container_name: static-builder

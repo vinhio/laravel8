@@ -1,0 +1,7 @@
+FROM node:12-alpine3.14
+WORKDIR /build
+
+# 1. Install build source libraries
+RUN apk --update upgrade
+RUN apk add libpng-dev automake autoconf make libtool \
+    g++ imagemagick nasm

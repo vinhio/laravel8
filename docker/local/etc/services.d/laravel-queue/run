@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+# Make sure all queue will be run as `nginx` user.
+
+s6-setuidgid nginx ./.default-queue.sh

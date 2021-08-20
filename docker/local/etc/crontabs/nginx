@@ -1,0 +1,9 @@
+# This Cron will call the Laravel command scheduler every minute.
+# When the schedule:run command is executed, Laravel will evaluate your
+# scheduled tasks and runs the tasks that are due.
+
+# do daily/weekly/monthly maintenance
+# min   hour    day     month   weekday command
+
+# Setup Laravel schedule https://laravel.com/docs/5.4/scheduling
+*       *       *       *       *       php /home/www/app/artisan schedule:run >>/dev/null 2>&1
