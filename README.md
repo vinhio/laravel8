@@ -119,8 +119,8 @@ Check via Command line:
     ...
     CONTAINER ID   IMAGE                     COMMAND                  CREATED         STATUS                   PORTS                                                                            NAMES
     14146afab62f   laravel8-web              "/init"                  6 minutes ago   Up 6 minutes             0.0.0.0:8080->80/tcp, :::8080->80/tcp, 0.0.0.0:8443->443/tcp, :::8443->443/tcp   laravel8-web
-    57d53fe2eff1   mysql:5.7.35              "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes (healthy)   33060/tcp, 0.0.0.0:33060->3306/tcp, :::33060->3306/tcp                           laravel8-db
-    398098dd8dfa   redis:4.0.14-alpine3.11   "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes             6379/tcp                                                                         laravel8-redis
+    57d53fe2eff1   mysql:8.0.25              "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes (healthy)   33060/tcp, 0.0.0.0:33060->3306/tcp, :::33060->3306/tcp                           laravel8-db
+    398098dd8dfa   redis:6.2.5-alpine3.14    "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes             6379/tcp                                                                         laravel8-redis
     e80c313a79da   mailhog/mailhog:v1.0.1    "MailHog"                6 minutes ago   Up 6 minutes             1025/tcp, 0.0.0.0:8025->8025/tcp, :::8025->8025/tcp                              laravel8-mail
 
 Check Web server environment:
@@ -142,7 +142,7 @@ Don't for get Go into Web instance (Note: Remember it for each time to add/remov
 
 #### Install Laravel:
 
-You should follow step at https://laravel.com/docs/7.x
+You should follow step at https://laravel.com/docs/8.x
 
     laravel8-web ~/app $ composer create-project --prefer-dist laravel/laravel tmp_app "8.*"
     laravel8-web ~/app $ mv tmp_app/public/* ./public/ && rm -fr tmp_app/public && rm -fr tmp_app/README.md && mv tmp_app/* . && mv tmp_app/.env.example . && mv tmp_app/.gitattributes . && rm -fr tmp_app
@@ -159,5 +159,3 @@ Check via HTTP
 
 - Web Server http://localhost:8080/
 - Mail Server http://localhost:8025/
-
-
