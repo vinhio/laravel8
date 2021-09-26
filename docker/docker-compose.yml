@@ -57,7 +57,6 @@ services:
       interval: 3s
       timeout: 3s
       retries: 10
-    #command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
     command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --default-authentication-plugin=mysql_native_password
 
   mail:
@@ -76,6 +75,23 @@ services:
     container_name: laravel8-redis
     labels:
       SERVICE_NAME: laravel8-redis
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:15.0.2
+    hostname: laravel8-keycloak
+    container_name: laravel8-keycloak
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: user
+      DB_PASSWORD: s@cRet
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
 
   static:
     build:

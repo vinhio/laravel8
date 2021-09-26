@@ -15,3 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HelloController::class . '@hello');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/sign-in/keycloak', [App\Http\Controllers\Auth\LoginController::class, 'keycloak'])->name('keycloak');
+Route::get('/sign-in/keycloak/callback', [App\Http\Controllers\Auth\LoginController::class, 'keycloakCallback'])->name('keycloak-callback');

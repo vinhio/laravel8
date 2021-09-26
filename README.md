@@ -4,6 +4,16 @@ Step by step create Laravel 8.x project from scratch base on docker image `vinhx
 
 Need to review docker image at https://hub.docker.com/r/vinhxike/php8 to understand the application environment and PHP plugins pre-installed in the image.
 
+Adding Social Logins (Keycloak) with Laravel Socialite. Tutorial links: 
+    
+    https://www.youtube.com/watch?v=FLsSEV5ulD4
+    https://www.youtube.com/watch?v=jIckLu1cKew
+
+Realm file `vertx-realm.json`. Keycloak contains the following predefined users:
+- Master Realm Admin `admin:admin` user.
+- Vertx Realm User `tester:test` with role `user`.
+- Vertx Realm User `vadmin:test` with roles `user, admin`.
+
 Docker compose `docker/docker-compose.yml` declared 4 instances:
 
     - Web instance PHP 8.0.9
