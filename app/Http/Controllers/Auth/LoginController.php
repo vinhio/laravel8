@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use http\Client\Curl\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -49,9 +49,6 @@ class LoginController extends Controller
 
     public function keycloakCallback(Request $request)
     {
-        // TODO Will get the error for this step because application ran in docker.
-        //      So, can not url KEYCLOAK_BASE_URL in .env.
-        //      ===> Need to deploy Identity (Keycloak) server to internet.
         $user = Socialite::driver('keycloak')->user();
         dump($user);
 
@@ -60,10 +57,11 @@ class LoginController extends Controller
         ], [
             'name' => $user->getName(),
             'email' => $user->getEmail(),
-            'social_id' => $user->getId(),
+            //'social_id' => $user->getId(),
         ]);
 
         Auth::login($user, true);
+
         return redirect('/home');*/
     }
 }

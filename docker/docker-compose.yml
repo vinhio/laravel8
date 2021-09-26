@@ -19,8 +19,7 @@ services:
       SERVICE_80_NAME: laravel8-web
       SERVICE_443_NAME: laravel8-web
     ports:
-     - '8080:80'
-     - '8443:443'
+      - '9093:80'
     depends_on:
       db:
         condition: service_healthy
@@ -32,12 +31,11 @@ services:
       APP_ENV: local
       PHP_IDE_CONFIG: serverName=laravel8-web.service.docker
     volumes:
-    - ../:/home/www/app
-    # Override xdebug.ini of image `vinhxike/php8`
-    - ./customize/etc/php8/conf.d/xdebug.ini:/etc/php8/conf.d/xdebug.ini
+      - ../:/home/www/app
+      # Override xdebug.ini of image `vinhxike/php8`
+      - ./customize/etc/php8/conf.d/xdebug.ini:/etc/php8/conf.d/xdebug.ini
 
   db:
-    #image: mysql:5.7.35
     image: mysql:8.0.25
     hostname: laravel8-db
     container_name: laravel8-db
@@ -64,34 +62,16 @@ services:
     hostname: laravel8-mail
     container_name: laravel8-mail
     labels:
-        SERVICE_NAME: laravel8-mail
+      SERVICE_NAME: laravel8-mail
     ports:
       - '8025:8025'
 
   redis:
-    #image: redis:4.0.14-alpine3.11
     image: redis:6.2.5-alpine3.14
     hostname: laravel8-redis
     container_name: laravel8-redis
     labels:
       SERVICE_NAME: laravel8-redis
-
-  keycloak:
-    image: quay.io/keycloak/keycloak:15.0.2
-    hostname: laravel8-keycloak
-    container_name: laravel8-keycloak
-    environment:
-      DB_VENDOR: MYSQL
-      DB_ADDR: mysql
-      DB_DATABASE: keycloak
-      DB_USER: user
-      DB_PASSWORD: s@cRet
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
 
   static:
     build:
