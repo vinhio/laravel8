@@ -1,0 +1,8 @@
+{
+  "realm" : "elearning",
+  "auth-server-url" : "http://localhost:9090/auth",
+  "ssl-required" : "external",
+  "resource" : "js",
+  "public-client" : true,
+  "use-resource-role-mappings": true
+}
