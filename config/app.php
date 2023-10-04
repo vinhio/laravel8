@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Add socialite providers
+        SocialiteProviders\Manager\ServiceProvider::class,
     ],
 
     /*

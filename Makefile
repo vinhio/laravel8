@@ -9,25 +9,25 @@ build:
 start: run
 
 run:
-	docker-compose -f docker/docker-compose.yml -p laravel8 up -d web
+	docker-compose -f docker/docker-compose.yml -p iamlaravel up -d web
 
 stop:
-	docker-compose -f docker/docker-compose.yml -p laravel8 kill
+	docker-compose -f docker/docker-compose.yml -p iamlaravel kill
 
 destroy:
-	docker-compose -f docker/docker-compose.yml -p laravel8 down
+	docker-compose -f docker/docker-compose.yml -p iamlaravel down
 
 logs:
-	docker-compose -f docker/docker-compose.yml -p laravel8 logs -f web
+	docker-compose -f docker/docker-compose.yml -p iamlaravel logs -f web
 
 shell:
-	docker-compose -f docker/docker-compose.yml -p laravel8 exec --user nginx web bash
+	docker-compose -f docker/docker-compose.yml -p iamlaravel exec --user nginx web bash
 
 root:
-	docker-compose -f docker/docker-compose.yml -p laravel8 exec web bash
+	docker-compose -f docker/docker-compose.yml -p iamlaravel exec web bash
 
 ip:
-	docker inspect laravel8-web | grep \"IPAddress\"
+	docker inspect iamlaravel-web | grep \"IPAddress\"
 
 static_install:
 	docker run -it -v "${PWD}:/build" static-builder npm --loglevel=error install
