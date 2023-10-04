@@ -1,8 +1,8 @@
-# Laravel 8.x and docker image `vinhxike/php8`
+# Laravel 8.x and docker image `vibrio/php8`
 
-Step by step create Laravel 8.x project from scratch base on docker image `vinhxike/php8`
+Step by step create Laravel 8.x project from scratch base on docker image `vibrio/php8`
 
-Need to review docker image at https://hub.docker.com/r/vinhxike/php8 to understand the application environment and PHP plugins pre-installed in the image.
+Need to review docker image at https://hub.docker.com/r/vibrio/php8 to understand the application environment and PHP plugins pre-installed in the image.
 
 Docker compose `docker/docker-compose.yml` declared 4 instances:
 
